@@ -1,9 +1,10 @@
 from pathlib import Path
 BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'django-insecure-yj84(4%s+(vhp9h#vxt-3&jn)5_hc$jv*gc0bwk+$+9ip+g*^0'
-DEBUG = True
+DEBUG = False
 
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['lakshu.pythonanywhere.com', 'localhost', '127.0.0.1']
+
 
 
 INSTALLED_APPS = [
@@ -99,6 +100,7 @@ STATIC_URL = 'static/'
 CORS_ALLOWED_ORIGINS = [
     "http://localhost:5173",
     "http://localhost:3000",
+    "https://baby-project-rho.vercel.app",
 ]
 
 # SimpleJWT Authentication
@@ -115,4 +117,4 @@ MEDIA_URL = '/media/'
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 # Add these at the very bottom of settings.py
 CORS_ALLOW_ALL_ORIGINS = True # Only for development!
-CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://localhost:3000"]
+CSRF_TRUSTED_ORIGINS = ["http://localhost:5173", "http://localhost:3000","https://baby-project-rho.vercel.app"]
