@@ -1,7 +1,7 @@
-import React, { useState } from "react"; // Added useState
+import React, { useState } from "react";
 import { Modal, Button, Form, Row, Col } from "react-bootstrap";
-import { FaEyeSlash, FaGoogle, FaFacebookF, FaTimes } from "react-icons/fa";
-import axios from "axios"; // Added axios
+import { FaEyeSlash, FaTimes } from "react-icons/fa";
+import API from "../api"; // Import your live API config
 
 const LoginModal = ({
   show,
@@ -9,28 +9,21 @@ const LoginModal = ({
   switchToRegister,
   onLoginSuccess,
 }) => {
-  // 1. ADD STATE TO CAPTURE DATA
   const [formData, setFormData] = useState({ email: "", password: "" });
 
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      // 2. CALL YOUR DJANGO LOGIN API
+      // Uses https://pythonanywhere.com
+      const res = await API.post("login/", formData);
 
-      const res = await axios.post(
-        "http://127.0.0.1:8000/api/login/",
-        formData,
-      );
       alert("Welcome Back!");
-
-      // 3. TELL APP.JSX LOGIN WAS SUCCESSFUL
       if (res.data.user) {
         onLoginSuccess(res.data.user);
       }
-
       handleClose();
     } catch (err) {
-      alert("Error: " + (err.response?.data?.error || "Login failed"));
+      alert("Error: " + (err.response?.data?.error || "Invalid credentials"));
     }
   };
 
@@ -44,7 +37,6 @@ const LoginModal = ({
           overflow: "hidden",
         }}
       >
-        {/* Close Button */}
         <button
           onClick={handleClose}
           style={{
@@ -65,11 +57,10 @@ const LoginModal = ({
         >
           <FaTimes size={14} />
         </button>
-
         <Row className="g-0">
           <Col md={6} className="d-none d-md-block">
             <img
-              src="/images/blog4.webp" // Ensure this image exists in public/images/
+              src="/images/blog4.webp"
               alt="Login"
               className="w-100 h-100"
               style={{ objectFit: "cover", minHeight: "480px" }}
@@ -77,8 +68,6 @@ const LoginModal = ({
           </Col>
           <Col md={6} className="p-4 px-lg-5 text-start">
             <h3 className="fw-bold text-center mb-4">Log In</h3>
-
-            {/* 4. ADD onSubmit HANDLER */}
             <Form onSubmit={handleLogin}>
               <Form.Group className="mb-3">
                 <Form.Label className="small fw-bold">Email</Form.Label>
@@ -92,7 +81,6 @@ const LoginModal = ({
                   }
                 />
               </Form.Group>
-
               <Form.Group className="mb-2">
                 <Form.Label className="small fw-bold">Password</Form.Label>
                 <div className="position-relative">
@@ -108,22 +96,14 @@ const LoginModal = ({
                   <FaEyeSlash className="position-absolute top-50 end-2 translate-middle-y me-2 text-muted" />
                 </div>
               </Form.Group>
-
-              <div className="text-end mb-3">
-                <a href="#" className="text-danger small text-decoration-none">
-                  Forgot password?
-                </a>
-              </div>
-
               <Button
-                type="submit" // Changed to type="submit"
+                type="submit"
                 variant="warning"
-                className="w-100 fw-bold py-2 mb-3 shadow-sm border-0"
+                className="w-100 fw-bold py-2 mb-3 shadow-sm border-0 mt-3"
                 style={{ backgroundColor: "#FFD84D" }}
               >
                 Log In
               </Button>
-
               <p className="text-center small">
                 Don't have an account?{" "}
                 <span
