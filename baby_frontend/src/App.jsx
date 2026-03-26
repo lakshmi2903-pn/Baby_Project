@@ -82,7 +82,7 @@ const App = () => {
 
       try {
         const res = await axios.get(
-          `http://127.0.0.1:8000/api/products/?${params.toString()}`,
+          `https://lakshu.pythonanywhere.com/api/products/?${params.toString()}`,
         );
         setProducts(res.data);
       } catch (err) {
