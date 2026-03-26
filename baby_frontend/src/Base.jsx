@@ -5,7 +5,7 @@ const Base = ({ children }) => {
   return (
     <>
       <Header />
-      <main style={{ minHeight: '80vh' }}>
+      <main style={{ minHeight: "80vh" }}>
         {children} {/* This is where your Products/Filters will show up */}
       </main>
       <Footer />
